@@ -1,0 +1,43 @@
+{
+  "name": "employee-odata",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^7",
+    "@sap/cds-hana": "^2",
+    "@sap/xssec": "^3",
+    "express": "^4",
+    "hana-cli": "^3.202311.1",
+    "passport": "^0"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^7",
+    "@sap/ux-specification": "^1.120.0"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-employee-odata-cli": "cds watch --open employee-odata-cli/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "cds": {
+    "build": {
+      "tasks": [
+        {
+          "for": "hana",
+          "dest": "../db"
+        },
+        {
+          "for": "node-cf"
+        }
+      ]
+    },
+    "requires": {
+      "db": {
+        "kind": "hana-cloud"
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+<mvc:View controllerName="employeeodatacli.employeeodatacli.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    
+    <App id="_app">
+		<pages>
+			<sap.m.semantic:FullscreenPage xmlns:sap.m.semantic="sap.m.semantic" title="Organization Employees Overview" id="Page1" semanticRuleSet="Optimized" showFooter="false">
+			    <sap.m.semantic:content>
+                    <VBox width="60%" direction="Column" id="vbox" fitContainer="true" class="vbox">
+			            
+			                <List noDataText="Drop list items here" id="List" items="{model>/Employee}">
+                                <items>
+                                <!-- <items>
+                                    <ObjectListItem type="Active" title="{name}" number="{ path: 'ID' }" id="EmployeeRow" press="OnSelectionChange"/>
+                                </items> -->
+                                    <ObjectListItem number="{ path: 'ID' }" type="Active" id="listItem" title="{model>ID}" press="OnSelectionChange">
+                                        <attributes>
+                                            <ObjectAttribute id="name" text="{model>name}"></ObjectAttribute>
+                                            <ObjectAttribute id="jobTitle" title="Job Title" text="{model>jobTitle}"></ObjectAttribute>
+                                            <ObjectAttribute id="address" title="Address (CEP, Number, Complement)" text="{model>address_CEP}, {model>address_number}, {model>address_complement}"></ObjectAttribute>
+                                            <ObjectAttribute id="email" title="Email" text="{model>email}"></ObjectAttribute>
+                                        </attributes>
+                                    </ObjectListItem>
+                                </items>
+                                <infoToolbar>
+                                    <Toolbar width="100%" id="__toolbar2" design="Solid">
+                                    <content>
+                                        <Button width="40px" id="Refresh" icon="sap-icon://refresh" type="Transparent" press="OnRefresh"/>
+                                        <Button width="40px" id="Add" icon="sap-icon://add" type="Transparent" press="OnAdd"/>
+                                        <Button width="40px" id="Edit" icon="sap-icon://edit" type="Transparent" press="OnEdit"/>
+                                        <Button width="40px" id="Delete" icon="sap-icon://delete" type="Transparent" press="OnDelete"/>
+                                    </content>
+                                    </Toolbar>
+                                </infoToolbar>
+			                </List>
+			            
+			        </VBox>
+			    </sap.m.semantic:content>
+			</sap.m.semantic:FullscreenPage>
+			<Page id="_page" title="{i18n>title}">
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
