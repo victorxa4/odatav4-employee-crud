@@ -1,11 +1,14 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
+    "sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+    "sap/ui/model/FilterType",
     "employeeodatacli/employeeodatacli/model/models"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, models) {
+    function (Controller, Filter, FilterOperator, FilterType, models) {
         "use strict";
 
         return Controller.extend("employeeodatacli.employeeodatacli.controller.View1", {
@@ -27,15 +30,13 @@ sap.ui.define([
             /**
              *------------------------------------------------------------------------*
              *     OnAdd                                                              *
-             *   OnAdd Click we will display a PopUp with the new Employee ID and the  *
-             *   User will populate the Employee Description field and submit his      *
-             *   changes.                                                             *
              * -----------------------------------------------------------------------*
              */
             OnAdd: function (oEvent) {
                 var oList = this.byId("List")
                 var oBinding = oList.getBinding("items")
                 console.log(oList)
+                console.log(oBinding)
 
                 var dialog = new sap.m.Dialog({
                     title: "Add Organization Employee",
@@ -55,7 +56,7 @@ sap.ui.define([
                                         text: "Employee Job Title:"
                                     }),
                                     new sap.m.Label({
-                                        text: "Employee CEP:"
+                                        text: "Employee Address CEP:"
                                     }),
                                     new sap.m.Label({
                                         text: "Employee Address Number:"
@@ -104,12 +105,17 @@ sap.ui.define([
                                 "name": sEmployeeName,
                                 "jobTitle": sEmployeeJobTitle,
                                 "address_CEP": sEmployeeAddressCEP,
-                                "address_number": sEmployeeAddressNumber,
+                                "address_number": String(sEmployeeAddressNumber),
                                 "address_complement": sEmployeeAddressComplement,
                                 "email": sEmployeeEmail
                             };
 
                             var oContext = oBinding.create(oObject)
+                            oContext.created().then(() => {
+                                console.log("objeto criado")
+                            }, error => {
+                                console.log(error)
+                            })
 
                             dialog.close();
                         }
@@ -216,12 +222,11 @@ sap.ui.define([
 
                             var oObject = {};
                             oObject = {
-                                "ID": sEmployeeID,
                                 "name": sEmployeeName,
                                 "jobTitle": sEmployeeJobTitle,
-                                "adress_CEP": sEmployeeAddressCEP,
-                                "adress_number": sEmployeeAddressNumber,
-                                "adress_complement": sEmployeeAddressComplement,
+                                "address_CEP": sEmployeeAddressCEP,
+                                "address_number": String(sEmployeeAddressNumber),
+                                "address_complement": sEmployeeAddressComplement,
                                 "email": sEmployeeEmail
                             };
                             
@@ -267,6 +272,28 @@ sap.ui.define([
             OnSelectionChange: function (oEvent) {
                 this._item = oEvent.getSource().getBindingContext("model").getObject();
                 this._itemContext = oEvent.getSource().getBindingContext("model")
-            }
+            },
+
+            onSearch: function () {
+                var oList = this.byId("List")
+                var oBinding = oList.getBinding("items")
+
+                var oView = this.getView(),
+                  sValue = oView.byId("searchField").getValue();
+
+                console.log(sValue)
+                
+                if (sValue) {
+                    var oFilter = new sap.ui.model.Filter({
+                        path : "$filter=",
+                        operator : sap.ui.model.FilterOperator.All,
+                        variable : "name",
+                        condition : new sap.ui.model.Filter("name", FilterOperator.Contains, sValue)
+                    });
+                }
+                console.log(oFilter)
+
+                oBinding.filter(oFilter)
+              }
         });
     });

@@ -6,9 +6,14 @@
 		<pages>
 			<sap.m.semantic:FullscreenPage xmlns:sap.m.semantic="sap.m.semantic" title="Organization Employees Overview" id="Page1" semanticRuleSet="Optimized" showFooter="false">
 			    <sap.m.semantic:content>
-                    <VBox width="60%" direction="Column" id="vbox" fitContainer="true" class="vbox">
+                    <VBox width="100%" direction="Column" id="vbox" fitContainer="true" class="vbox">
 			            
-			                <List noDataText="Drop list items here" id="List" items="{model>/Employee}">
+			                <List noDataText="Drop list items here" id="List" items="{
+                                path: 'model>/Employee',
+                                parameters: {
+                                    $$operationMode : 'Server'
+                                }
+                            }">
                                 <items>
                                 <!-- <items>
                                     <ObjectListItem type="Active" title="{name}" number="{ path: 'ID' }" id="EmployeeRow" press="OnSelectionChange"/>
@@ -29,6 +34,7 @@
                                         <Button width="40px" id="Add" icon="sap-icon://add" type="Transparent" press="OnAdd"/>
                                         <Button width="40px" id="Edit" icon="sap-icon://edit" type="Transparent" press="OnEdit"/>
                                         <Button width="40px" id="Delete" icon="sap-icon://delete" type="Transparent" press="OnDelete"/>
+                                        <SearchField id="searchField" width="20%" placeholder="Search Employee" enabled="{= !${appView>/hasUIChanges}}" search=".onSearch"/>
                                     </content>
                                     </Toolbar>
                                 </infoToolbar>
