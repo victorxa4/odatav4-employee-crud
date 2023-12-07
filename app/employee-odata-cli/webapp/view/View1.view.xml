@@ -1,5 +1,7 @@
 <mvc:View controllerName="employeeodatacli.employeeodatacli.controller.View1"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    displayBlock="true"
     xmlns="sap.m">
     
     <App id="_app">
@@ -35,6 +37,15 @@
                                         <Button width="40px" id="Edit" icon="sap-icon://edit" type="Transparent" press="OnEdit"/>
                                         <Button width="40px" id="Delete" icon="sap-icon://delete" type="Transparent" press="OnDelete"/>
                                         <SearchField id="searchField" width="20%" placeholder="Search Employee" enabled="{= !${appView>/hasUIChanges}}" search=".onSearch"/>
+                                        <Select id="selectField">
+                                            <core:ListItem id="selectID" text="ID" additionalText="ID"/>
+                                            <core:ListItem id="selectName" text="Name" additionalText="name"/>
+                                            <core:ListItem id="selectJobTitle" text="Job Title" additionalText="jobTitle"/>
+                                            <core:ListItem id="selectAddress_CEP" text="CEP" additionalText="address_CEP"/>
+                                            <core:ListItem id="selectAddress_number" text="Address Number" additionalText="address_number"/>
+                                            <core:ListItem id="selectAddress_complement" text="Address Complement" additionalText="address_complement"/>
+                                            <core:ListItem id="selectEmail" text="Email" additionalText="email"/>
+                                        </Select>
                                     </content>
                                     </Toolbar>
                                 </infoToolbar>

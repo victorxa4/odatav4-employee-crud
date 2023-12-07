@@ -34,8 +34,6 @@ sap.ui.define([
             OnAdd: function (oEvent) {
                 var oList = this.byId("List")
                 var oBinding = oList.getBinding("items")
-                console.log(oList)
-                console.log(oBinding)
 
                 var dialog = new sap.m.Dialog({
                     title: "Add Organization Employee",
@@ -111,7 +109,7 @@ sap.ui.define([
 
                             var oContext = oBinding.create(oObject)
                             oContext.created().then(() => {
-                                console.log("objeto criado")
+
                             }, error => {
                                 console.log(error)
                             })
@@ -230,10 +228,9 @@ sap.ui.define([
                             };
                             
                             var oContext = employeeContext
-                            console.log(oContext)
+
                             for (let [key, value] of Object.entries(oObject)) {
                                 if (value != null || values != "") {
-                                    console.log(key)
                                     oContext.setProperty(key, value);
                                 }
                             }
@@ -278,11 +275,10 @@ sap.ui.define([
                 var oBinding = oList.getBinding("items")
 
                 var oView = this.getView(),
-                  sValue = oView.byId("searchField").getValue();
-
-                console.log(sValue)
+                  sValue = oView.byId("searchField").getValue(),
+                  sField = oView.byId("selectField").getSelectedItem().getAdditionalText();
                 
-                var oFilter = new sap.ui.model.Filter("name", FilterOperator.Contains, sValue)
+                var oFilter = new sap.ui.model.Filter(sField, FilterOperator.Contains, sValue)
                 oBinding.filter(oFilter)
               }
         });
