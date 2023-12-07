@@ -2,13 +2,12 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-    "sap/ui/model/FilterType",
     "employeeodatacli/employeeodatacli/model/models"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, Filter, FilterOperator, FilterType, models) {
+    function (Controller, Filter, FilterOperator, models) {
         "use strict";
 
         return Controller.extend("employeeodatacli.employeeodatacli.controller.View1", {
@@ -233,7 +232,7 @@ sap.ui.define([
                             var oContext = employeeContext
                             console.log(oContext)
                             for (let [key, value] of Object.entries(oObject)) {
-                                if (value != null || "") {
+                                if (value != null || values != "") {
                                     console.log(key)
                                     oContext.setProperty(key, value);
                                 }
@@ -283,16 +282,7 @@ sap.ui.define([
 
                 console.log(sValue)
                 
-                if (sValue) {
-                    var oFilter = new sap.ui.model.Filter({
-                        path : "$filter=",
-                        operator : sap.ui.model.FilterOperator.All,
-                        variable : "name",
-                        condition : new sap.ui.model.Filter("name", FilterOperator.Contains, sValue)
-                    });
-                }
-                console.log(oFilter)
-
+                var oFilter = new sap.ui.model.Filter("name", FilterOperator.Contains, sValue)
                 oBinding.filter(oFilter)
               }
         });
